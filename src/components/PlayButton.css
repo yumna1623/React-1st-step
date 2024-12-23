@@ -1,0 +1,8 @@
+.custom-hover {
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.custom-hover:hover {
+    background-color: rgb(57, 121, 126); /* Change to your desired hover color */
+    color: rgb(0, 0, 0); /* Change text color */
+}
