@@ -1,7 +1,7 @@
-.Dark{
+/* .Dark{
     background-color: blue;
     color: black;
-}
+} */
 .container{
     width: 15em;
     margin: 0 0.2em;
@@ -22,4 +22,12 @@
 }
 .views span{
     padding: 0 0.5 em;
+}
+.container.darkMode{
+    background-color: #333333;
+    color: white; 
+}
+.container.lightMode{
+    background-color: violet;
+    color: rgb(0, 0, 0); 
 }

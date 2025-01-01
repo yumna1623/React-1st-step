@@ -6,3 +6,11 @@
     background-color: rgb(57, 121, 126); /* Change to your desired hover color */
     color: rgb(0, 0, 0); /* Change text color */
 }
+button.darkMode , .darkMode button{
+    background-color: rgb(0, 0, 0); 
+    color: rgb(235, 139, 15); 
+}
+button.lightMode , .lightMode button{
+    background-color: rgb(0, 0, 0); 
+    color: rgb(70, 15, 75); 
+}

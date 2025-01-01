@@ -1,8 +1,13 @@
+import { useContext } from 'react';
 import './Video.css';
+import ThemeContext from '../context/ThemeContext';
 
 function Video({ title, id, channel = "yumna", views, time, verified, children, deleteVideo, editVideo }) {
+    const themeContext = useContext(ThemeContext)
   return (
-    <div className='container'>
+
+    <>
+    <div className= { `container ${themeContext} `}>
       <button className='close' type="button" onClick={() => deleteVideo(id)}> X </button>
       <button className='close' type="button" onClick={() => editVideo(id)}> Edit </button>
       <div className='pic'>
@@ -18,6 +23,7 @@ function Video({ title, id, channel = "yumna", views, time, verified, children, 
         {children}
       </div>
     </div>
+    </>
   );
 }
 

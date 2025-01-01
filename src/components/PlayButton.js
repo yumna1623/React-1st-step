@@ -1,7 +1,11 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import './PlayButton.css';
+import ThemeContext from '../context/ThemeContext';
 
 function PlayButton({children,onPause,onPlay}) {
+
+    const themeContext = useContext(ThemeContext);
+
     const [playing,setPlaying] = useState(false);
     function handleClick(e){
         if(playing){
@@ -16,7 +20,7 @@ function PlayButton({children,onPause,onPlay}) {
     return (
         <button
             type="button"
-            className="btn btn-warning custom-hover"
+            className =  {themeContext}
             onClick={handleClick}> {children} : {playing? '⏯' : '⏸'} </button>
     );
 }
