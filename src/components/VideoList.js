@@ -2,10 +2,12 @@ import Video from './Video';
 import PlayButton from './PlayButton';
 import {useContext} from 'react';
 import VideosContext from '../context/VideosContext';
+import useVideos from '../hooks/Videos';
 
 function VideoList({  deleteVideo, editVideo }) {
 
-    const videos = useContext(VideosContext);
+    // const videos = useContext(VideosContext);
+    const videos = useVideos()
 
 
   return (
