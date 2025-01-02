@@ -16,13 +16,13 @@ const videos = [{
     id:2
                
  },
-//  {
-//     title:" MOngoDB Tutorial",
-//     views:"100k",
-//     time:"1 month ago ",
-//     channel:"lemon Smasher ",
-//     verified: false,
-//     id:3              
-//  }
+ {
+    title:" MOngoDB Tutorial",
+    views:"100k",
+    time:"1 month ago ",
+    channel:"lemon Smasher ",
+    verified: false,
+    id:3              
+ }
 ];
 export default videos;

@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { useContext } from 'react';
+import VideodispatchContext from './context/VideodispatchContext';
 import './AddVideo.css';
 
 const initialState = {
@@ -8,9 +10,9 @@ const initialState = {
   views: ''
 };
 
-function AddVideo({ dispatch,editableVideo }) {
+function AddVideo({ editableVideo }) {
   const [video, setVideo] = useState(initialState);
-  
+  const dispatch = useContext(VideodispatchContext);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -62,3 +64,4 @@ function AddVideo({ dispatch,editableVideo }) {
 }
 
 export default AddVideo;
+
