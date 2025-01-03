@@ -8,10 +8,15 @@ import ThemeContext from './context/ThemeContext';
 import VideosContext from './context/VideosContext';
 import VideodispatchContext from './context/VideodispatchContext';
 
+import useWindowSize from './hooks/useWindowSize';
+
+
 function App() {
   const [editableVideo, setEditableVideo] = useState(null);
   const [videos, dispatch] = useReducer(videoReducer, videoDB); // useReducer syntax
   const [theme, setTheme] = useState('darkMode');
+
+  const { width, height } = useWindowSize();
 
 //   const themeContext = useContext(ThemeContext);
 
@@ -61,6 +66,8 @@ return (
             deleteVideo={deleteVideo} 
             editVideo={editVideo}/>
         <Counter />
+        <p>Window width: {width}px</p>
+      <p>Window height: {height}px</p>
     </div>
 
     </VideodispatchContext.Provider>
