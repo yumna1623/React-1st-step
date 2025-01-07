@@ -1,14 +1,28 @@
 import Video from './Video';
 import PlayButton from './PlayButton';
-import {useContext} from 'react';
-import VideosContext from '../context/VideosContext';
-import useVideos from '../hooks/Videos';
+import { useEffect } from 'react';
+import useVideos from '../hooks/useVideos';
+import useVideoDispatch from '../hooks/useVideoDispatch';
+import axios from 'axios';
 
-function VideoList({  deleteVideo, editVideo }) {
+function VideoList({ deleteVideo, editVideo }) {
+  const url = "https://my.api.mockaroo.com/api.json?key=dbe8dbe0";
+  const videos = useVideos();
+  const dispatch = useVideoDispatch();
 
-    // const videos = useContext(VideosContext);
-    const videos = useVideos()
-
+  // Declare `getVideos` outside `useEffect` for reuse
+  async function getVideos() {
+    try {
+      const response = await axios.get(url); // asynchronous request
+      console.log('Getting videos', response.data);
+      dispatch({ type: 'LOAD', payload: response.data });
+    } catch (error) {
+      console.error('Error fetching videos:', error);
+    }
+  }
+  useEffect(() => {
+    getVideos(); // Fetch videos on initial render
+  }, []);
 
   return (
     <>
@@ -23,7 +37,6 @@ function VideoList({  deleteVideo, editVideo }) {
           id={video.id}
           deleteVideo={deleteVideo}
           editVideo={editVideo}
-        //   dispatch = {dispatch}
         >
           <PlayButton
             onPlay={() => console.log('play', video.title)}
@@ -33,41 +46,9 @@ function VideoList({  deleteVideo, editVideo }) {
           </PlayButton>
         </Video>
       ))}
+      <button onClick={getVideos}>Get videos</button>
     </>
   );
 }
 
 export default VideoList;
-
-// import Video from './Video';
-// import PlayButton from './PlayButton';
-
-// function VideoList({ dispatch, videos, deleteVideo, editVideo }) {
-//   return (
-//     <>
-//       {videos.map((video) => (
-//         <Video
-//           key={video.id}
-//           title={video.title}
-//           views={video.views}
-//           time={video.time}
-//           channel={video.channel}
-//           verified={video.verified}
-//           id={video.id}
-//           deleteVideo={deleteVideo}
-//           editVideo={editVideo}
-//           dispatch = {dispatch}
-//         >
-//           <PlayButton
-//             onPlay={() => console.log('play', video.title)}
-//             onPause={() => console.log('pause', video.title)}
-//           >
-//             {video.title}
-//           </PlayButton>
-//         </Video>
-//       ))}
-//     </>
-//   );
-// }
-
-// export default VideoList;

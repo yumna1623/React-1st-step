@@ -7,14 +7,12 @@ import VideoList from './components/VideoList';
 import ThemeContext from './context/ThemeContext';
 import VideosContext from './context/VideosContext';
 import VideodispatchContext from './context/VideodispatchContext';
-
 import useWindowSize from './hooks/useWindowSize';
-
 
 function App() {
   const [editableVideo, setEditableVideo] = useState(null);
-  const [videos, dispatch] = useReducer(videoReducer, videoDB); // useReducer syntax
   const [theme, setTheme] = useState('darkMode');
+  const [videos, dispatch] = useReducer(videoReducer, []); // useReducer syntax
 
   const { width, height } = useWindowSize();
 
@@ -22,6 +20,9 @@ function App() {
 
   function videoReducer(videos, action) {
     switch (action.type) {
+
+    case 'LOAD':
+        return action.payload;
     case 'ADD':
         return [...videos, { ...action.payload, id: videos.length + 1 }];
     case 'DELETE':
