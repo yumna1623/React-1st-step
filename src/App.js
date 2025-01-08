@@ -1,7 +1,7 @@
 import './App.css';
 import videoDB from './data/thumbnail';
 import Counter from './components/Counter';
-import { useReducer, useState, useContext } from 'react';
+import { useReducer, useState, useContext, useCallback } from 'react';
 import AddVideo from './AddVideo';
 import VideoList from './components/VideoList';
 import ThemeContext from './context/ThemeContext';
@@ -45,9 +45,9 @@ case 'UPDATE':
     dispatch({ type: 'DELETE', payload: id });
 }
 
-function editVideo(id) {
+const editVideo = useCallback(function editVideo(id) {
     setEditableVideo(videos.find((video) => video.id === id)); // Filters out the video by its id
-}
+},[videos])
 
 return (
     <ThemeContext.Provider value={theme}>
@@ -56,7 +56,8 @@ return (
 
     <div className={`App ${theme}`}> 
     <button onClick={() => setTheme(theme === 'darkMode' ? 'lightMode' : 'darkMode')}>Toggle</button>
-    
+    <Counter />
+
     <AddVideo 
     // dispatch={dispatch} 
     editableVideo={editableVideo} />
@@ -66,7 +67,6 @@ return (
             // dispatch={dispatch} 
             deleteVideo={deleteVideo} 
             editVideo={editVideo}/>
-        <Counter />
         <p>Window width: {width}px</p>
       <p>Window height: {height}px</p>
     </div>

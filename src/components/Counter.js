@@ -1,10 +1,15 @@
-import { useRef } from "react";
-import { useState } from "react";
+import { useMemo, useRef } from "react";
+import { useState,useCallback } from "react";
+
+
 
 function Counter() {
-    const [number,setNumber] = useState(0);
+    console.log("Counter rendered");
+    
+    const [number,setNumber] = useState(3);
     let num = useRef(0); //this 0 value will store in num current value so we'll get it like num.current
-    function handleClick(e) {
+    //useRef is a React hook that creates a mutable object whose .current property can hold a value.
+      function handleClick(e) {
         e.stopPropagation();
             setNumber(number=>number+1); 
             setNumber(number=>number+1); 
@@ -14,39 +19,28 @@ function Counter() {
             console.log("number",number);
             console.log("num",num.current);
     }
+
+    const fibFx = useCallback (function fib(n) { //1,1,2,3,5
+        if(n===1 || n===2) {
+            return 1;
+        }
+        return fib(n-1) + fib(n-2);
+    },[])
+    //useCallback(()=>(),[]) //useCallback is used to memoize the function 
+
+    // useMemo(()=>(),[])
+    const fibMemoized  = useMemo( () =>fibFx(number),[number,fibFx]  );//what memoized here is the return value of tis function
+    //what we need to memoized is function itself and the dependency array so we use callback before the function
+    //here when dependency array changes then only fibFx function will run otherwise it will not run
+    //it will store the value of fibFx(number) in fibFxMemoized and it will not run again and again when number changes
+    //it will run only when number changes above from useState
+
     return(
         <>
-        <h1 style={{color : 'white'}}>{number}</h1>
+        <h1 style={{color : 'white'}}>{number} | {fibMemoized}</h1>
         <button onClick={handleClick}>Add</button>
         </>
     )
 }
 export default Counter;
 // ------------------------------------------------------------------------------------------------------------------------------------------------
-// import { useState } from "react";
-
-// function Counter() {
-//     const [number,setNumber] = useState(0);
-//     let num = 0;
-//     function handleClick(e) {
-//         e.stopPropagation();
-//             setNumber(number=>number+1); 
-//             setNumber(number=>number+1); 
-//             setNumber(number=>number+1); 
-//             num++;           
-
-//             //"{now in this way num will not change as value of num  
-//             // will become 0 cause of re rnedering of the component every time the component re renders 
-//             // the value of num will become 0 so we use useRef to store the value of num"}
-
-//             console.log("number",number);
-//             console.log("num",num);
-//     }
-//     return(
-//         <>
-//         <h1 style={{color : 'white'}}>{number}</h1>
-//         <button onClick={handleClick}>Add</button>
-//         </>
-//     )
-// }
-// export default Counter;
