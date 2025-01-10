@@ -50,7 +50,7 @@ function VideoList({ deleteVideo, editVideo }) {
         >
           {/* <PlayButton
             onPlay={play} // here playbtn is still not memoized so it will re-render
-            onPause={pause}
+            onPause={pause}`
           >
             {video.title}
           </PlayButton> */} 

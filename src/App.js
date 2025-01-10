@@ -1,7 +1,7 @@
 import './App.css';
 import videoDB from './data/thumbnail';
 import Counter from './components/Counter';
-import { useReducer, useState, useContext, useCallback } from 'react';
+import { useReducer, useState, useRef, useCallback } from 'react';
 import AddVideo from './AddVideo';
 import VideoList from './components/VideoList';
 import ThemeContext from './context/ThemeContext';
@@ -13,10 +13,9 @@ function App() {
   const [editableVideo, setEditableVideo] = useState(null);
   const [theme, setTheme] = useState('darkMode');
   const [videos, dispatch] = useReducer(videoReducer, []); // useReducer syntax
-
+const inputref =useRef(null);
   const { width, height } = useWindowSize();
 
-//   const themeContext = useContext(ThemeContext);
 
   function videoReducer(videos, action) {
     switch (action.type) {
@@ -56,9 +55,12 @@ return (
 
     <div className={`App ${theme}`}> 
     <button onClick={() => setTheme(theme === 'darkMode' ? 'lightMode' : 'darkMode')}>Toggle</button>
+    <button onClick={()=> {inputref.current.focus()}}>FOCUS</button>
+
     <Counter />
 
     <AddVideo 
+    ref = {inputref}
     editableVideo={editableVideo} />
 
         {/* <VideoList 
